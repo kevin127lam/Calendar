@@ -39,8 +39,12 @@ function genCalendar(month, year, req, res) {
 
   const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-  /* Code to create calendar rows and cells goes here */
+  // Construct the header string with the month and year
+  let header_string = `${monthNames[month]} ${year}`;
 
+  // Construct the calendar string with the day numbers
+  let calendar_string = '';
+  
   res.render("index", {
     header: header_string,
     calendar: calendar_string

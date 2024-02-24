@@ -38,7 +38,6 @@ function genCalendar(month, year, req, res) {
   }
 
   const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  //////////////////////////////////////////
 
   // Calculate the last day of the given month
   let lastDayOfMonth = calcLastDayOfMonth(month);
@@ -57,9 +56,9 @@ function genCalendar(month, year, req, res) {
       } else {
         // check for current day
         let currentDay = null;
-        if(isToday(month, dayOfMonth, year)){
+        if (isToday(month, dayOfMonth, year)) {
           currentDay = 'today';
-        } else{
+        } else {
           currentDay = '';
         }
         calendar_string += `<td class="${currentDay}">${dayOfMonth}</td>`;
@@ -72,9 +71,6 @@ function genCalendar(month, year, req, res) {
   }
   calendar_string += '</tr>'; // End of the last row
 
-
-
-  //////////////////////////////////////////
   res.render("index", {
     header: header_string,
     calendar: calendar_string
@@ -90,7 +86,11 @@ app.get("/calendar", function (req, res) {
     month = today.getMonth() + 1;
     year = today.getFullYear();
   }
-  genCalendar(month, year, req, res);
+  // Generate the calendar and render the view
+  const calendarData = genCalendar(month, year, req, res);
+  res.render("index", {
+    calendarData
+  });
 });
 
 app.get("/backmonth", function (req, res) {

@@ -11,17 +11,17 @@ body, table, td, th {
   
   /* Style table header */
   thead {
-    background-color: #f2f2f2;
+    background-color: #96AD52;
   }
   
   th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #AD9652;
     padding: 8px;
     text-align: center;
   }
   
   /* Style today's date */
   .today {
-    background-color: #4CAF50;
+    background-color: #AD6952;
     color: white;
   }

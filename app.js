@@ -32,26 +32,56 @@ function genCalendar(month, year, req, res) {
     return lastDay;
   }
 
-  function isToday(m,d,y) {
+  function isToday(m, d, y) {
     const today = new Date();
-    return m == today.getMonth()+1 && y == today.getFullYear() && d == today.getDate();
+    return m == today.getMonth() + 1 && y == today.getFullYear() && d == today.getDate();
   }
 
   const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  //////////////////////////////////////////
 
-  // Construct the header string with the month and year
+  // Calculate the last day of the given month
+  let lastDayOfMonth = calcLastDayOfMonth(month);
   let header_string = `${monthNames[month]} ${year}`;
+  let dayOfMonth = 1;
 
-  // Construct the calendar string with the day numbers
-  let calendar_string = '';
-  
+  //gets the first day of the month
+  let firstDay = new Date(year, month - 1, 1).getDay();
+
+
+  let calendar_string = '<tr>';
+  for (let i = 0; i < 6; i++) { // max number of weeks
+    for (let j = 0; j < 7; j++) {
+      if ((i === 0 && j < firstDay) || dayOfMonth > lastDayOfMonth) {
+        calendar_string += '<td></td>';
+      } else {
+        // check for current day
+        let currentDay = null;
+        if(isToday(month, dayOfMonth, year)){
+          currentDay = 'today';
+        } else{
+          currentDay = '';
+        }
+        calendar_string += `<td class="${currentDay}">${dayOfMonth}</td>`;
+        dayOfMonth++;
+      }
+    }
+    // End current row and start a new row
+    calendar_string += '</tr><tr>';
+    if (dayOfMonth > lastDayOfMonth) break; // Break if we have processed all days of the month
+  }
+  calendar_string += '</tr>'; // End of the last row
+
+
+
+  //////////////////////////////////////////
   res.render("index", {
     header: header_string,
     calendar: calendar_string
   });
 }
 
-app.get("/calendar", function(req, res) {
+app.get("/calendar", function (req, res) {
   if (req.query.month && req.query.year) {
     month = parseInt(req.query.month);
     year = parseInt(req.query.year);
@@ -63,21 +93,21 @@ app.get("/calendar", function(req, res) {
   genCalendar(month, year, req, res);
 });
 
-app.get("/backmonth", function(req, res) {
-// Assign new month and year and call genCalendar
+app.get("/backmonth", function (req, res) {
+  // Assign new month and year and call genCalendar
 
 });
 
-app.get("/forwardmonth", function(req, res) {
-// Assign new month and year and call genCalendar
+app.get("/forwardmonth", function (req, res) {
+  // Assign new month and year and call genCalendar
 });
 
-app.get("/backyear", function(req, res) {
-// Assign new month and year and call genCalendar
+app.get("/backyear", function (req, res) {
+  // Assign new month and year and call genCalendar
 });
 
-app.get("/forwardyear", function(req, res) {
-// Assign new month and year and call genCalendar
+app.get("/forwardyear", function (req, res) {
+  // Assign new month and year and call genCalendar
 });
 
 app.listen(3000);

@@ -94,20 +94,41 @@ app.get("/calendar", function (req, res) {
 });
 
 app.get("/backmonth", function (req, res) {
-  // Assign new month and year and call genCalendar
+  if (month === 1) {
+    month = 12;
+  } else {
+    month -= 1;
+  }
+
+  if (month === 12) {
+    year = year - 1;
+  }
+  genCalendar(month, year, req, res);
 
 });
 
 app.get("/forwardmonth", function (req, res) {
-  // Assign new month and year and call genCalendar
+  if (month === 12) {
+    month = 1;
+  } else {
+    month += 1;
+  }
+
+  if (month === 1) {
+    year += 1;
+  }
+  genCalendar(month, year, req, res);
 });
 
 app.get("/backyear", function (req, res) {
-  // Assign new month and year and call genCalendar
+  year -= 1;
+  genCalendar(month, year, req, res);
+
 });
 
 app.get("/forwardyear", function (req, res) {
-  // Assign new month and year and call genCalendar
+  year += 1;
+  genCalendar(month, year, req, res);
 });
 
 app.listen(3000);

@@ -87,10 +87,7 @@ app.get("/calendar", function (req, res) {
     year = today.getFullYear();
   }
   // Generate the calendar and render the view
-  const calendarData = genCalendar(month, year, req, res);
-  res.render("index", {
-    calendarData
-  });
+  genCalendar(month, year, req, res);
 });
 
 app.get("/backmonth", function (req, res) {

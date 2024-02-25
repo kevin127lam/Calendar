@@ -1,27 +1,37 @@
-body, table, td, th {
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Center the table */
   table {
     margin: 20px auto;
     border-collapse: collapse;
   }
-  
-  /* Style table header */
-  thead {
-    background-color: #96AD52;
+
+  .header {
+    background-color: #546FAB;
   }
-  
+
+  .days{
+    background-color: #549AAB;
+  }
+
   th, td {
-    border: 1px solid #AD9652;
-    padding: 8px;
+    border: 1px solid gray;
+    padding: 15px;
+    font-size: 20px;
     text-align: center;
   }
-  
-  /* Style today's date */
+
   .today {
-    background-color: #AD6952;
+    background-color: #54AB90;
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a:link, a:visited {
+    color: none;
+  }
+
+  a:hover{
     color: white;
   }

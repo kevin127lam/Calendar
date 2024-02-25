@@ -1,8 +1,7 @@
-// Put your name and ID here 
+//Kevin Lam; khl225@lehigh.edu 
 
 const express = require("express");
 const path = require("path");
-const sprintf = require("sprintf-js").sprintf;
 
 const app = express();
 
@@ -40,18 +39,18 @@ function genCalendar(month, year, req, res) {
   const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   // Calculate the last day of the given month
-  let lastDayOfMonth = calcLastDayOfMonth(month);
+  let lastDay = calcLastDayOfMonth(month);
   let header_string = `${monthNames[month]} ${year}`;
   let dayOfMonth = 1;
 
   //gets the first day of the month
   let firstDay = new Date(year, month - 1, 1).getDay();
 
-
+  //generate html for calendar days 
   let calendar_string = '<tr>';
   for (let i = 0; i < 6; i++) { // max number of weeks
     for (let j = 0; j < 7; j++) {
-      if ((i === 0 && j < firstDay) || dayOfMonth > lastDayOfMonth) {
+      if ((i === 0 && j < firstDay) || dayOfMonth > lastDay) {
         calendar_string += '<td></td>';
       } else {
         // check for current day
@@ -67,7 +66,7 @@ function genCalendar(month, year, req, res) {
     }
     // End current row and start a new row
     calendar_string += '</tr><tr>';
-    if (dayOfMonth > lastDayOfMonth) break; // Break if we have processed all days of the month
+    if (dayOfMonth > lastDay) break; // Break all days of month are processed 
   }
   calendar_string += '</tr>'; // End of the last row
 
@@ -98,7 +97,7 @@ app.get("/backmonth", function (req, res) {
   }
 
   if (month === 12) {
-    year = year - 1;
+    year -= 1;
   }
   genCalendar(month, year, req, res);
 
